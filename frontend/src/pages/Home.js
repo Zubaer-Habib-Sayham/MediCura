@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 function Home() {
     return (
         <>
-        <header><h1>MediCura</h1></header>
         <nav>
+            <div class="logo">MediCura</div>
             <Link to="/">Home</Link>
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
@@ -13,8 +13,8 @@ function Home() {
         </nav>
         <main>
             <div>
-                <h2>Welcome to MediCura</h2>
-                <p>Minimalistic hospital system</p>
+                <h3>Welcome to MediCura</h3>
+                <h3>Please <Link to="/login">Login</Link> to continue.</h3>
             </div>
         </main>
         <footer>&copy; 2025 MediCura</footer>
