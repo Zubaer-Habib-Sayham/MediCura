@@ -5,7 +5,6 @@ const db = mysql.createConnection({
   user: 'root',         // your MySQL username
   password: '1234',     // your MySQL password
   database: 'MediCura',
-  port: 3308
 });
 
 db.connect((err) => {
