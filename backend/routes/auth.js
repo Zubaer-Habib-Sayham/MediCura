@@ -40,7 +40,7 @@ router.post('/login', (req, res) => {
         if (match) {
             const token = jwt.sign({ user_id: results[0].user_id }, SECRET, { expiresIn: '1h' });
             res.cookie('token', token, { httpOnly: true });
-            res.json({ success: true, user: { username: results[0].username, role: results[0].role } });
+            res.json({ success: true, token: token, user: { user_id: results[0].user_id, username: results[0].username, role: results[0].role } });
         } else {
             res.json({ success: false, message: 'Wrong password' });
         }

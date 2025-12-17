@@ -16,7 +16,11 @@ function Login() {
             );
             if (res.data.success) {
                 alert('Login successful!');
+                localStorage.setItem("token", res.data.token);
+                localStorage.setItem("user", JSON.stringify(res.data.user));
                 navigate('/');
+
+
             } else {
                 alert(res.data.message);
             }
