@@ -59,9 +59,11 @@ function DoctorHome({ user }) {
                 <Link to="/logout">Log Out</Link>
             </nav>
 
-            <main>
-                <h2>Welcome, Dr. {user.username}</h2>
-            </main>
+            <section className = "hero">
+                    <div className = "hero-content">
+                        <h2>Welcome, Dr. {user.username}</h2>
+                    </div>
+            </section>
         </>
     );
 }
@@ -80,7 +82,12 @@ function PatientHome({ user }) {
             </nav>
 
             <main>
-                <h2>Welcome, {user.username}</h2>
+                
+                <section className = "hero">
+                    <div className = "hero-content">
+                        <h2>Welcome, {user.username}</h2>
+                    </div>
+                </section>
             </main>
         </>
     );
@@ -99,7 +106,11 @@ function AdminHome({ user }) {
             </nav>
 
             <main>
-                <h2>Welcome, Admin {user.username}</h2>
+                <section className = "hero">
+                    <div className = "hero-content">
+                        <h2>Welcome, Admin {user.username}</h2>
+                    </div>
+                </section>
             </main>
         </>
     );
