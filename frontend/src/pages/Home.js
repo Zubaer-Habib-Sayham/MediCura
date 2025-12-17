@@ -61,7 +61,7 @@ function DoctorHome({ user }) {
 
             <section className = "hero">
                     <div className = "hero-content">
-                        <h2>Welcome, Dr. {user.username}</h2>
+                        <span>Welcome, Dr. {user.username}</span>
                     </div>
             </section>
         </>
@@ -80,14 +80,12 @@ function PatientHome({ user }) {
                 <Link to="#">Dashboard</Link>
                 <Link to="/logout">Log Out</Link>
             </nav>
-
-            <main>
-                
-                <section className = "hero">
+            <section className = "hero">
                     <div className = "hero-content">
-                        <h2>Welcome, {user.username}</h2>
+                        <span>Welcome, {user.username}</span>
                     </div>
-                </section>
+            </section>
+            <main>
             </main>
         </>
     );
@@ -99,18 +97,44 @@ function AdminHome({ user }) {
         <>
             <nav>
                 <div className="logo">MediCura</div>
-                <Link to="#">Room</Link>
-                <Link to="#">Inventory</Link>
-                <Link to="#">Stats</Link>
                 <Link to="/logout">Log Out</Link>
             </nav>
-
-            <main>
-                <section className = "hero">
+            <section className = "hero">
                     <div className = "hero-content">
-                        <h2>Welcome, Admin {user.username}</h2>
+                        <span>Welcome, Admin {user.username}</span>
                     </div>
+            </section>
+            <main>
+                <section className="features">
+                    <Link to = "#">
+                        <div className="feature-card">
+                            <h3>🩺 Doctors</h3>
+                        </div>
+                    </Link>
+                    
+                    <Link to = "#">
+                        <div className="feature-card">
+                            <h3>👤 Patients</h3>
+                        </div>
+                    </Link>
+
+                    <Link to = "#">
+                        <div className="feature-card">
+                            <h3>💊 Pharmacy Inventory</h3>
+                        </div>
+                    </Link>
+                    <Link to = "#">
+                        <div className="feature-card">
+                            <h3>🏠 Rooms</h3>
+                        </div>
+                    </Link>
+                    <Link to = "#">
+                        <div className="feature-card">
+                            <h3>📊 Stats</h3>
+                        </div>
+                    </Link>
                 </section>
+
             </main>
         </>
     );

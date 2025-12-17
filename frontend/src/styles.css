@@ -60,13 +60,19 @@ a:hover{
 
 /* Homepage welcome text */
 .hero {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 50px;
+  max-width: 90%;
+  margin: 20px auto;
+  padding: 40px 10px;
   border-radius: 20px;
   background: linear-gradient(135deg, #7b4fe0, #b37df5);
   color: white;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .hero h1 {
@@ -78,4 +84,50 @@ a:hover{
   max-width: 500px;
   line-height: 1.6;
   margin-bottom: 30px;
+}
+
+.hero-tag {
+  font-size: 12px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+/* feature cards */
+.features {
+  max-width: 1200px;
+  margin: 60px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.feature-link {
+  all: unset;              
+  display: block;          
+  cursor: pointer;
+}
+
+.feature-card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.178);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  text-align: center;
+  color: #000000;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card h3 {
+  margin-bottom: 10px;
 }
