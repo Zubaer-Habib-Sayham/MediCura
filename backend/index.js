@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth');
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 
@@ -17,6 +18,9 @@ app.get('/api/test', (req, res) => {
 
 // ===== Auth routes =====
 app.use('/api', authRoutes);
+
+// ===== Admin routes =====
+app.use("/admin", adminRoutes);
 
 // Start server
 app.listen(5000, () => console.log('Backend running on port 5000'));

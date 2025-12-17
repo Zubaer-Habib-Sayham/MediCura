@@ -17,16 +17,40 @@ router.post('/signup', async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        // Insert into User table
         db.query(
             'INSERT INTO User (username,email,password,gender,date_of_birth,age,address,contact_no,role) VALUES (?,?,?,?,?,?,?,?,?)',
             [username, email, hashedPassword, gender, date_of_birth, age, address, contact_no, role],
             (err, results) => {
                 if (err) return res.status(500).send(err);
-                res.json({ success: true, message: 'Signup successful' });
+
+                const userId = results.insertId; // Newly created user_id
+
+                // Insert into role-specific table
+                if (role === 'Patient') {
+                    db.query('INSERT INTO Patient (patient_id) VALUES (?)', [userId], (err2) => {
+                        if (err2) return res.status(500).send(err2);
+                        res.json({ success: true, message: 'Signup successful' });
+                    });
+                } else if (role === 'Doctor') {
+                    db.query('INSERT INTO Doctor (doctor_id) VALUES (?)', [userId], (err2) => {
+                        if (err2) return res.status(500).send(err2);
+                        res.json({ success: true, message: 'Signup successful' });
+                    });
+                } else if (role === 'Admin') {
+                    db.query('INSERT INTO Admin (admin_id) VALUES (?)', [userId], (err2) => {
+                        if (err2) return res.status(500).send(err2);
+                        res.json({ success: true, message: 'Signup successful' });
+                    });
+                } else {
+                    // If role is something else (like Pharmacist), just finish
+                    res.json({ success: true, message: 'Signup successful' });
+                }
             }
         );
     });
 });
+
 
 // LOGIN
 router.post('/login', (req, res) => {

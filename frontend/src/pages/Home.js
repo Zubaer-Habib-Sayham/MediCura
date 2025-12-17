@@ -106,24 +106,24 @@ function AdminHome({ user }) {
             </section>
             <main>
                 <section className="features">
-                    <Link to = "#">
+                    <Link to = "/admin/doctors">
                         <div className="feature-card">
                             <h3>🩺 Doctors</h3>
                         </div>
                     </Link>
                     
-                    <Link to = "#">
+                    <Link to = "/admin/patients">
                         <div className="feature-card">
                             <h3>👤 Patients</h3>
                         </div>
                     </Link>
 
-                    <Link to = "#">
+                    <Link to = "/admin/medicines">
                         <div className="feature-card">
                             <h3>💊 Pharmacy Inventory</h3>
                         </div>
                     </Link>
-                    <Link to = "#">
+                    <Link to = "/admin/rooms">
                         <div className="feature-card">
                             <h3>🏠 Rooms</h3>
                         </div>

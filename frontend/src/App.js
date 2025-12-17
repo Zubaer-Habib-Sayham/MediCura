@@ -5,11 +5,19 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Logout from './pages/Logout';
 import './styles.css';
+import Doctors from "./pages/admin/Doctors";
+import Patients from "./pages/admin/Patients";
+import Medicines from "./pages/admin/Medicines";
+import Rooms from "./pages/admin/Rooms";
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/admin/doctors" element={<Doctors />} />
+        <Route path="/admin/patients" element={<Patients />} />
+        <Route path="/admin/medicines" element={<Medicines />} />
+        <Route path="/admin/rooms" element={<Rooms />} />
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
