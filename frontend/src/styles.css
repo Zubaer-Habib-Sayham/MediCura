@@ -41,18 +41,19 @@ main { display:flex; justify-content:center; align-items:center; min-height:70vh
 .form-container button { width:100%; padding:10px; background:#9b59b6; color:white; border:none; border-radius:5px; cursor:pointer; }
 .form-container button:hover { background:#8846a3; }
 footer { text-align:center; padding:20px; background:#f2f2f2; }
-button{
+a{
     margin-left: 16px;
     padding: 8px 16px;
     border-radius: 10px;
     border: 1px solid #e5e5e5;
+    background-color: white;
     color: #000000;
     text-decoration: none;
     font-weight: 500;
     transition: 0.2s ease;
 }
 
-button:hover{
+a:hover{
     background: #9b59b6;
     color: white;
 }

@@ -26,8 +26,8 @@ function Home() {
                             Please Log In or Sign Up to continue.
                         </p>
                         <div>
-                            <button><Link to="/login">Login</Link></button>
-                            <button><Link to="/signup">Sign Up</Link></button>
+                            <Link to="/login">Login</Link>
+                            <Link to="/signup">Sign Up</Link>
                         </div>
                     </div>
                 </section>
