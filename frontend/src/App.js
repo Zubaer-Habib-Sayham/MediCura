@@ -9,11 +9,13 @@ import Doctors from "./pages/admin/Doctors";
 import Patients from "./pages/admin/Patients";
 import Medicines from "./pages/admin/Medicines";
 import Rooms from "./pages/admin/Rooms";
+import AddMedicineForm from "./pages/admin/AddMedicineForm";
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/admin/medicines/add" element={<AddMedicineForm />}/>
         <Route path="/admin/doctors" element={<Doctors />} />
         <Route path="/admin/patients" element={<Patients />} />
         <Route path="/admin/medicines" element={<Medicines />} />

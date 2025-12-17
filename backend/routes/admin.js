@@ -6,8 +6,8 @@ const router = express.Router();
 /* ===== DOCTORS (view + delete) ===== */
 router.get("/doctors", (req, res) => {
     const q = `
-        SELECT u.user_id, u.username, u.email,
-               d.specialization, d.department
+        SELECT u.user_id, u.username, u.email, u.gender, u.date_of_birth, u.age, u.address, u.contact_no,
+               d.specialization, d.department, d.qualification, d.experience_year, d.consultation_fee, d.salary, d.rating
         FROM User u
         JOIN Doctor d ON u.user_id = d.doctor_id
     `;
@@ -16,6 +16,7 @@ router.get("/doctors", (req, res) => {
         res.json(data);
     });
 });
+
 
 router.delete("/doctors/:id", (req, res) => {
     db.query(
@@ -31,8 +32,8 @@ router.delete("/doctors/:id", (req, res) => {
 /* ===== PATIENTS (view + delete) ===== */
 router.get("/patients", (req, res) => {
     const q = `
-        SELECT u.user_id, u.username, u.email,
-               p.blood_group
+        SELECT u.user_id, u.username, u.email, u.gender, u.date_of_birth, u.age, u.address, u.contact_no,
+               p.blood_group, p.medical_history
         FROM User u
         JOIN Patient p ON u.user_id = p.patient_id
     `;
@@ -92,11 +93,18 @@ router.delete("/medicines/:id", (req, res) => {
 
 /* ===== ROOMS (view + add + delete) ===== */
 router.get("/rooms", (req, res) => {
-    db.query("SELECT * FROM Room", (err, data) => {
+    const q = `
+        SELECT r.room_id, r.price, r.status, r.patient_id, u.username AS patient_name
+        FROM Room r
+        LEFT JOIN Patient p ON r.patient_id = p.patient_id
+        LEFT JOIN User u ON p.patient_id = u.user_id
+    `;
+    db.query(q, (err, data) => {
         if (err) return res.status(500).json(err);
         res.json(data);
     });
 });
+
 
 router.post("/rooms", (req, res) => {
     const { price } = req.body;

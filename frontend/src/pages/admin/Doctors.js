@@ -22,7 +22,11 @@ function Doctors() {
 
   return (
     <>
-      <h2 style={{ textAlign: "center", marginTop: "20px" }}>Doctors</h2>
+      <section className = "hero">
+                    <div className = "hero-content">
+                        <span>Doctors List</span>
+                    </div>
+      </section>
 
       <table className="table">
         <thead>
