@@ -1,10 +1,12 @@
+
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
-
+const db = require('./db')
 const app = express();
+
 
 // Allow frontend to communicate with backend
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
