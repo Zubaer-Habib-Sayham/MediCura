@@ -1,8 +1,12 @@
-import React from 'react';
+
+import { useContext } from 'react';
+import { AuthContext } from '../AuthContext';
 import { Link } from 'react-router-dom';
 
 function Home() {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const { user, loading } = useContext(AuthContext);
+
+    if (loading) return <main>Loading...</main>;
 
     // ---------- NOT LOGGED IN (PUBLIC LANDING PAGE) ----------
     if (!user) {
@@ -19,12 +23,12 @@ function Home() {
                         <div className="hero-content">
                             <h1>Welcome to MediCura</h1>
 
-                            <p>
+                            <p className='hero-content'>
                                 Manage doctors, patients, appointments, and pharmacy operations
                                 in one streamlined place.
                             </p>
 
-                            <p>Please Log In or Sign Up to continue.</p>
+                            <p className='hero-content'>Please Log In or Sign Up to continue.</p>
 
                             <div>
                                 <Link to="/login">Login</Link>
@@ -54,7 +58,8 @@ function DoctorHome({ user }) {
             <nav>
                 <div className="logo">MediCura</div>
                 <Link to="#">Appointment</Link>
-                <Link to="#">Dashboard</Link>
+                <Link to="/doctor/prescriptions"> Prescription</Link>
+                <Link to="/doctor/dashboard">Dashboard</Link>
                 <Link to="#">Online Consultation</Link>
                 <Link to="/logout">Log Out</Link>
             </nav>

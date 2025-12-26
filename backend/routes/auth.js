@@ -3,8 +3,7 @@ const router = express.Router();
 const db = require('../db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
-const SECRET = 'secretkey'; // JWT secret
+const { JWT_SECRET } = require('../config'); // import secret
 
 // SIGNUP
 router.post('/signup', async (req, res) => {
@@ -33,10 +32,21 @@ router.post('/signup', async (req, res) => {
                         res.json({ success: true, message: 'Signup successful' });
                     });
                 } else if (role === 'Doctor') {
-                    db.query('INSERT INTO Doctor (doctor_id) VALUES (?)', [userId], (err2) => {
-                        if (err2) return res.status(500).send(err2);
-                        res.json({ success: true, message: 'Signup successful' });
-                    });
+                    // Initialize all Doctor columns with default values
+                    db.query(
+                            `INSERT INTO Doctor 
+                            (doctor_id, specialization, department, qualification, experience_year, consultation_fee,
+                            salary, salary_type, rating, bio, available_days, available_time_slots, availability_status, avatar)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                            [
+                                userId,'','','',0,0.0,0.0,'monthly',0,'',JSON.stringify([]), 
+                                JSON.stringify([]), 'Available',null
+                            ],
+                            (err2) => {
+                                if (err2) return res.status(500).send(err2);
+                                res.json({ success: true, message: 'Signup successful' });
+                            }
+                    );
                 } else if (role === 'Admin') {
                     db.query('INSERT INTO Admin (admin_id) VALUES (?)', [userId], (err2) => {
                         if (err2) return res.status(500).send(err2);
@@ -62,7 +72,7 @@ router.post('/login', (req, res) => {
 
         const match = await bcrypt.compare(password, results[0].password);
         if (match) {
-            const token = jwt.sign({ user_id: results[0].user_id }, SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ user_id: results[0].user_id, role: results[0].role }, JWT_SECRET, { expiresIn: '1h' });
             res.cookie('token', token, { httpOnly: true });
             res.json({ success: true, token: token, user: { user_id: results[0].user_id, username: results[0].username, role: results[0].role } });
         } else {
@@ -75,6 +85,22 @@ router.post('/login', (req, res) => {
 router.post('/logout', (req, res) => {
     res.clearCookie('token');
     res.json({ success: true });
+});
+
+// GET current user
+router.get('/me', (req, res) => {
+    const token = req.cookies.token;
+    if (!token) return res.json({ user: null });
+
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        db.query('SELECT user_id, username, email, role FROM User WHERE user_id = ?', [decoded.user_id], (err, results) => {
+            if (err || results.length === 0) return res.json({ user: null });
+            res.json({ user: results[0] });
+        });
+    } catch (err) {
+        res.json({ user: null });
+    }
 });
 
 module.exports = router;

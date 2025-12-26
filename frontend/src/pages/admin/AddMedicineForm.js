@@ -38,7 +38,7 @@ function AddMedicineForm() {
       </section>
 
       <main>
-        <div className="form-container">
+        <div className="form-container auth">
           <input
             placeholder="Name"
             onChange={(e) =>

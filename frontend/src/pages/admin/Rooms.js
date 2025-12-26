@@ -31,15 +31,13 @@ function Rooms() {
       <h2 style={{ textAlign: "center", marginTop: "20px" }}>Rooms</h2>
 
       {/* Add Room Form */}
-      <div style={{ textAlign: "center", marginBottom: "20px" }}>
+      <div className="form-container auth">
         <input
           placeholder="Price"
           type="number"
           onChange={(e) => setForm({ ...form, price: e.target.value })}
         />
-        <button className="add-btn" onClick={add}>
-          Add Room
-        </button>
+        <button onClick={add}> Add Room </button>
       </div>
       
       <section className = "hero">

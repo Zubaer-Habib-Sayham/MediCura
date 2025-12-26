@@ -35,7 +35,7 @@ function Signup(){
 
     return(
         <main>
-        <div className="form-container">
+        <div className="form-container auth">
             <h2>Sign Up</h2>
             <form onSubmit={handleSignup}>
                 <input type="text" placeholder="Username" value={username} onChange={e=>setUsername(e.target.value)} required />
