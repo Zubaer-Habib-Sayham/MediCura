@@ -206,6 +206,15 @@ a:hover{
   background: #c0392b;
 }
 
+.table .cart-btn {
+  background: #88b8ff;
+  color: white;
+}
+
+.table .cart-btn:hover {
+  background: #62a1ff;
+}
+
 .table .edit-btn {
   background: #3498db;
   color: white;

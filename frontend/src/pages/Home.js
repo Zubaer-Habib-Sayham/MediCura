@@ -80,7 +80,8 @@ function PatientHome({ user }) {
             <nav>
                 <div className="logo">MediCura</div>
                 <Link to="#">Book Appointment</Link>
-                <Link to="#">Pharmacy</Link>
+                <Link to="/patient/pharmacy">Pharmacy</Link>
+                <Link to="/patient/cart">My Cart</Link>
                 <Link to="#">Book Room</Link>
                 <Link to="#">Dashboard</Link>
                 <Link to="/logout">Log Out</Link>

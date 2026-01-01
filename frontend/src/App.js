@@ -15,6 +15,8 @@ import Medicines from "./pages/admin/Medicines";
 import Rooms from "./pages/admin/Rooms";
 import AddMedicineForm from "./pages/admin/AddMedicineForm";
 import './styles.css';
+import Pharmacy from './pages/patient/Pharmacy';
+import Cart from './pages/patient/Cart';
 
 function App() {
     const { user, loading } = useContext(AuthContext);
@@ -27,6 +29,10 @@ function App() {
 
     return (
         <Routes>
+            {/* Pharmacy routes */}
+            <Route path="/patient/pharmacy" element={<ProtectedRoute><Pharmacy /></ProtectedRoute>} />
+            <Route path="/patient/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+
             {/* Admin routes */}
             <Route path="/admin/medicines/add" element={<ProtectedRoute><AddMedicineForm /></ProtectedRoute>} />
             <Route path="/admin/doctors" element={<ProtectedRoute><Doctors /></ProtectedRoute>} />
