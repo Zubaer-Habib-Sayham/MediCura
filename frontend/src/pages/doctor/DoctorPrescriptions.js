@@ -225,9 +225,7 @@ function DoctorPrescriptions() {
         )}
       </section>
 
-      <div className="muted small" style={{ marginTop: '12px' }}>
-        Need to see a patient's perspective? <Link to="/patient/prescriptions">Open patient prescriptions</Link>
-      </div>
+      
     </main>
   );
 }

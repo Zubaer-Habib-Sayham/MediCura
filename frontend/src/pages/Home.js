@@ -79,16 +79,13 @@ function PatientHome({ user }) {
         <>
             <nav>
                 <div className="logo">MediCura</div>
-                <Link to="#">Book Appointment</Link>
-                <Link to="/patient/pharmacy">Pharmacy</Link>
-                <Link to="/patient/cart">My Cart</Link>
-                <Link to="#">Book Room</Link>
-                <Link to="#">Dashboard</Link>
-                <Link to="/logout">Log Out</Link>
+                <Link to="/patient/dashboard">Go to Patient Portal</Link>
             </nav>
             <section className = "hero">
                     <div className = "hero-content">
                         <span>Welcome, {user.username}</span>
+                        <p></p>
+                        <Link to="/patient/dashboard" className="view-all-link">Go to Patient Portal</Link>
                     </div>
             </section>
             <main>

@@ -41,7 +41,7 @@ function Pharmacy() {
     <div>
       <nav>
         <div className="logo">MediCura</div>
-        <Link to="/">Home</Link>
+        <Link to="/patient/dashboard">Portal</Link>
         <Link to="/patient/cart">My Cart</Link>
         <Link to="/logout">Logout</Link>
       </nav>
