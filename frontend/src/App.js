@@ -9,10 +9,14 @@ import Logout from './pages/Logout';
 import Doctors from "./pages/admin/Doctors";
 import DoctorDashboard from './pages/doctor/DoctorDashboard';
 import DoctorPrescriptions from './pages/doctor/DoctorPrescriptions';
+import DoctorAppointments from './pages/doctor/DoctorAppointments';
+import DoctorConsultations from './pages/doctor/DoctorConsultations';
+import PatientConsultation from './pages/doctor/PatientConsultation';
 import Patients from "./pages/admin/Patients";
 import Medicines from "./pages/admin/Medicines";
 import Rooms from "./pages/admin/Rooms";
 import AddMedicineForm from "./pages/admin/AddMedicineForm";
+import AdminOrderManagement from './pages/admin/AdminOrderManagement';
 import './styles.css';
 import Pharmacy from './pages/patient/Pharmacy';
 import Cart from './pages/patient/Cart';
@@ -26,6 +30,7 @@ import PaymentSuccess from './pages/patient/PaymentSuccess';
 import PaymentFailed from './pages/patient/PaymentFailed';
 import MedicalHistory from './pages/patient/MedicalHistory';
 import Checkout from './pages/patient/Checkout';
+import PHR_OrderHistory from './pages/patient/PHR_OrderHistory';
 function App() {
     const { user, loading } = useContext(AuthContext);
 
@@ -47,19 +52,28 @@ function App() {
             <Route path="/patient/payment-success" element={<ProtectedRoute><PaymentSuccess /></ProtectedRoute>} />
             <Route path="/patient/payment-failed" element={<ProtectedRoute><PaymentFailed /></ProtectedRoute>} />
             <Route path="/patient/medical-history" element={<ProtectedRoute><MedicalHistory /></ProtectedRoute>} />
+            <Route path="/patient/consultation" element={<ProtectedRoute><PatientConsultation /></ProtectedRoute>} />
+            <Route path="/patient/consultation/:doctorId" element={<ProtectedRoute><PatientConsultation /></ProtectedRoute>} />
+            
+            {/* Pharmacy routes */}
             <Route path="/patient/pharmacy" element={<ProtectedRoute><Pharmacy /></ProtectedRoute>} />
             <Route path="/patient/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
             <Route path="/patient/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+            <Route path="/patient/orders" element={<ProtectedRoute><PHR_OrderHistory /></ProtectedRoute>} />
+
             {/* Admin routes */}
             <Route path="/admin/medicines/add" element={<ProtectedRoute><AddMedicineForm /></ProtectedRoute>} />
             <Route path="/admin/doctors" element={<ProtectedRoute><Doctors /></ProtectedRoute>} />
             <Route path="/admin/patients" element={<ProtectedRoute><Patients /></ProtectedRoute>} />
             <Route path="/admin/medicines" element={<ProtectedRoute><Medicines /></ProtectedRoute>} />
             <Route path="/admin/rooms" element={<ProtectedRoute><Rooms /></ProtectedRoute>} />
+            <Route path="/admin/orders" element={<ProtectedRoute><AdminOrderManagement /></ProtectedRoute>} />
 
             {/* Doctor routes */}
             <Route path="/doctor/dashboard" element={<ProtectedRoute><DoctorDashboard /></ProtectedRoute>} />
             <Route path="/doctor/prescriptions" element={<ProtectedRoute><DoctorPrescriptions /></ProtectedRoute>} />
+            <Route path="/doctor/appointments" element={<ProtectedRoute><DoctorAppointments /></ProtectedRoute>} />
+            <Route path="/doctor/consultations" element={<ProtectedRoute><DoctorConsultations /></ProtectedRoute>} />
 
             {/* Public routes */}
             <Route path="/" element={<Home />} />

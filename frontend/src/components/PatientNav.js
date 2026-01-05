@@ -28,6 +28,9 @@ function PatientNav() {
                     <li className={isActive('/patient/appointments') ? 'active' : ''}>
                         <Link to="/patient/appointments">Appointments</Link>
                     </li>
+                    <li className={isActive('/patient/consultation') ? 'active' : ''}>
+                        <Link to="/patient/consultation">Consultation</Link>
+                    </li>
                     <li className={isActive('/patient/prescriptions') ? 'active' : ''}>
                         <Link to="/patient/prescriptions">Prescriptions</Link>
                     </li>

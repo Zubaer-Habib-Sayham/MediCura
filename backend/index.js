@@ -9,6 +9,7 @@ const patientRoutes = require('./routes/patient');
 const prescriptionRoutes = require('./routes/prescriptions');
 const cartRoutes = require('./routes/cart');
 const orderRoutes = require('./routes/PHR_orders');
+const adminOrdersRoutes = require('./routes/adminOrders');
 const db = require('./db')
 const app = express();
 
@@ -30,6 +31,7 @@ app.use('/api', prescriptionRoutes);  // Prescriptions routes
 app.use('/api/cart', cartRoutes);     // Pharmacy/cart routes
 app.use('/api/patient', patientRoutes); // Patient routes (includes profile picture upload now)
 app.use('/api/orders', orderRoutes);
+app.use('/api/admin', adminOrdersRoutes);
 
 // ===== Error handling =====
 app.use((err, req, res, next) => {

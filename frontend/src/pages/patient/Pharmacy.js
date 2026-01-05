@@ -43,6 +43,7 @@ function Pharmacy() {
         <div className="logo">MediCura</div>
         <Link to="/patient/dashboard">Portal</Link>
         <Link to="/patient/cart">My Cart</Link>
+        <Link to="/patient/orders">Order History</Link>
         <Link to="/logout">Logout</Link>
       </nav>
 

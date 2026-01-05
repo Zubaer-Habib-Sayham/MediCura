@@ -57,10 +57,10 @@ function DoctorHome({ user }) {
         <>
             <nav>
                 <div className="logo">MediCura</div>
-                <Link to="#">Appointment</Link>
+                <Link to="/doctor/appointments">Appointment</Link>
                 <Link to="/doctor/prescriptions"> Prescription</Link>
                 <Link to="/doctor/dashboard">Dashboard</Link>
-                <Link to="#">Online Consultation</Link>
+                <Link to="/doctor/consultations">Online Consultation</Link>
                 <Link to="/logout">Log Out</Link>
             </nav>
 
@@ -129,6 +129,11 @@ function AdminHome({ user }) {
                     <Link to = "/admin/rooms">
                         <div className="feature-card">
                             <h3>🏠 Rooms</h3>
+                        </div>
+                    </Link>
+                    <Link to="/admin/orders">
+                        <div className="feature-card">
+                            <h3>📦 Order Management</h3>
                         </div>
                     </Link>
                     <Link to = "#">

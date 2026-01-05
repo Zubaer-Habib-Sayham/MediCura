@@ -132,6 +132,11 @@ function PatientDashboard() {
                                     <h3>Pharmacy</h3>
                                     <p>Order medicines online</p>
                                 </Link>
+                                <Link to="/patient/consultation" className="action-card">
+                                    <span className="action-icon">🗣️</span>
+                                    <h3>Online Consultation</h3>
+                                    <p>Consult with a Doctor</p>
+                                </Link>
                             </div>
                         </div>
 
