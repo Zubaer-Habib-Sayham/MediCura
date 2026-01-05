@@ -17,6 +17,7 @@ import Medicines from "./pages/admin/Medicines";
 import Rooms from "./pages/admin/Rooms";
 import AddMedicineForm from "./pages/admin/AddMedicineForm";
 import AdminOrderManagement from './pages/admin/AdminOrderManagement';
+import AdminSales from './pages/admin/AdminSales';
 import './styles.css';
 import Pharmacy from './pages/patient/Pharmacy';
 import Cart from './pages/patient/Cart';
@@ -68,6 +69,7 @@ function App() {
             <Route path="/admin/medicines" element={<ProtectedRoute><Medicines /></ProtectedRoute>} />
             <Route path="/admin/rooms" element={<ProtectedRoute><Rooms /></ProtectedRoute>} />
             <Route path="/admin/orders" element={<ProtectedRoute><AdminOrderManagement /></ProtectedRoute>} />
+            <Route path="/admin/sales" element={<ProtectedRoute><AdminSales /></ProtectedRoute>} />
 
             {/* Doctor routes */}
             <Route path="/doctor/dashboard" element={<ProtectedRoute><DoctorDashboard /></ProtectedRoute>} />

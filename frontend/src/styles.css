@@ -1665,3 +1665,239 @@ textarea {
 .decline-btn:hover {
   background-color: #e53935;
 }
+
+/* Container */
+.admin-orders, .admin-sales {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Headings */
+.admin-orders h2, .admin-sales h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #333;
+}
+
+/* Order Card */
+.order-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  background-color: #f9f9f9;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Header of each order */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.order-header h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+/* Status badge */
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+/* Colors for statuses */
+.status-badge.pending { background-color: orange; }
+.status-badge.delivered { background-color: green; }
+.status-badge.canceled { background-color: red; }
+
+/* Order items */
+.order-items {
+  list-style: none;
+  padding-left: 0;
+  margin: 10px 0;
+}
+
+.order-items li {
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* Action buttons */
+.order-actions {
+  margin-top: 10px;
+}
+
+.order-actions button {
+  padding: 8px 15px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.confirm-btn {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+.confirm-btn:hover {
+  background-color: #45a049;
+}
+
+.decline-btn {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.decline-btn:hover {
+  background-color: #e53935;
+}
+
+/* Analytics table */
+.sales-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.sales-table th, .sales-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.sales-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.sales-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.sales-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Loading & empty state */
+.admin-orders div, .admin-sales div {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+  padding: 20px 0;
+}
+
+/* Admin Sales Dashboard Container */
+.admin-sales {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Page Header */
+.admin-sales h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* Analytics Cards Container */
+.analytics-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+/* Each Card */
+.analytics-card {
+  flex: 1 1 250px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.analytics-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.analytics-card h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #555;
+}
+
+.analytics-card p {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  color: #111;
+}
+
+/* Sales Table */
+.sales-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.sales-table th, .sales-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.sales-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.sales-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.sales-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Chart Container */
+.chart-container {
+  margin-top: 25px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Loading & Empty States */
+.admin-sales div {
+  text-align: center;
+  color: #666;
+  padding: 20px 0;
+  font-size: 18px;
+}

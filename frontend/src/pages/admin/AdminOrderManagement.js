@@ -65,7 +65,7 @@ function AdminOrderManagement() {
         >
           <option value="All">All</option>
           <option value="Pending">Pending</option>
-          <option value="Delivered">Confirmed</option>
+          <option value="Paid">Paid</option>
           <option value="Canceled">Canceled</option>
         </select>
       </div>
