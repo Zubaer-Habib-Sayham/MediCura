@@ -97,7 +97,7 @@ function PatientDashboard() {
                             </div>
 
                             <div className="stat-card">
-                                <div className="stat-icon">💊</div>
+                                <div className="stat-icon">📝</div>
                                 <div className="stat-content">
                                     <h3>{stats.prescriptions}</h3>
                                     <p>Prescriptions</p>
@@ -107,7 +107,7 @@ function PatientDashboard() {
 
                         {/* Quick Actions */}
                         <div className="quick-actions">
-                            <h2>Quick Actions</h2>
+                            <h2>All Features</h2>
                             <div className="actions-grid">
                                 <Link to="/patient/doctors" className="action-card">
                                     <span className="action-icon">🔍</span>

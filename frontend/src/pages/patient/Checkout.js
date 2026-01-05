@@ -49,7 +49,6 @@ function Checkout() {
         <select value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)}>
           <option value="COD">Cash on Delivery (COD)</option>
           <option value="MobileBanking">Mobile Banking</option>
-          <option value="CreditCard">Credit Card</option>
         </select>
 
         <button onClick={handlePlaceOrder} disabled={loading}>

@@ -91,43 +91,56 @@ router.delete("/medicines/:id", (req, res) => {
     );
 });
 
-/* ===== ROOMS (view + add + delete) ===== */
+/* ===== ROOMS (view + add + delete + update) ===== */
 router.get("/rooms", (req, res) => {
-    const q = `
-        SELECT r.room_id, r.price, r.status, r.patient_id, u.username AS patient_name
-        FROM Room r
-        LEFT JOIN Patient p ON r.patient_id = p.patient_id
-        LEFT JOIN User u ON p.patient_id = u.user_id
-    `;
-    db.query(q, (err, data) => {
-        if (err) return res.status(500).json(err);
-        res.json(data);
-    });
+  const q = `
+    SELECT r.room_id, r.price, r.status, r.room_type, r.capacity, r.amenities,
+           r.patient_id, r.check_in, r.check_out,
+           u.username AS patient_name
+    FROM Room r
+    LEFT JOIN Patient p ON r.patient_id = p.patient_id
+    LEFT JOIN User u ON p.patient_id = u.user_id
+  `;
+  db.query(q, (err, data) => {
+    if (err) return res.status(500).json(err);
+    res.json(data);
+  });
 });
 
-
 router.post("/rooms", (req, res) => {
-    const { price } = req.body;
+  const { price, room_type, capacity, amenities } = req.body;
 
-    db.query(
-        "INSERT INTO Room (price) VALUES (?)",
-        [price],
-        err => {
-            if (err) return res.status(500).json(err);
-            res.json("Room added");
-        }
-    );
+  const q = `
+    INSERT INTO Room (price, room_type, capacity, amenities)
+    VALUES (?, ?, ?, ?)
+  `;
+  db.query(q, [price, room_type, capacity, JSON.stringify(amenities)], (err) => {
+    if (err) return res.status(500).json(err);
+    res.json("Room added");
+  });
 });
 
 router.delete("/rooms/:id", (req, res) => {
-    db.query(
-        "DELETE FROM Room WHERE room_id = ?",
-        [req.params.id],
-        err => {
-            if (err) return res.status(500).json(err);
-            res.json("Room deleted");
-        }
-    );
+  db.query("DELETE FROM Room WHERE room_id = ?", [req.params.id], (err) => {
+    if (err) return res.status(500).json(err);
+    res.json("Room deleted");
+  });
 });
+
+// Optional: update room info (assign patient, check_in/out)
+router.put("/rooms/:id", (req, res) => {
+  const { patient_id, check_in, check_out, status } = req.body;
+
+  const q = `
+    UPDATE Room 
+    SET patient_id = ?, check_in = ?, check_out = ?, status = ?
+    WHERE room_id = ?
+  `;
+  db.query(q, [patient_id, check_in, check_out, status, req.params.id], (err) => {
+    if (err) return res.status(500).json(err);
+    res.json("Room updated");
+  });
+});
+
 
 module.exports = router;

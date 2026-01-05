@@ -63,7 +63,7 @@ main {
   padding: 24px 0;
 }
 .form-container { background:#f2f2f2; padding:30px; border-radius:10px; width:300px; box-shadow:0 4px 6px rgba(0,0,0,0.1); }
-.form-container input, .form-container select { width:100%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc; }
+.form-container input, .form-container select { width:100%; padding:10px; margin:10px 0; border-radius:5px; font-size: 16px; border:1px solid #ccc; }
 .form-container button { width:100%; padding:10px; background:#9b59b6; color:white; border:none; border-radius:5px; cursor:pointer; }
 .form-container button:hover { background:#8846a3; }
 a{
@@ -1900,4 +1900,103 @@ textarea {
   color: #666;
   padding: 20px 0;
   font-size: 18px;
+}
+/* ===== Rooms Container ===== */
+.rooms-form {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== Inputs ===== */
+.rooms-form input,
+.rooms-form select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* ===== Bottom Layout ===== */
+.rooms-bottom {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+/* ===== Amenities Card ===== */
+.rooms-amenities {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.rooms-amenities h4 {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #333;
+}
+
+/* ===== Amenities Grid ===== */
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+/* ===== Checkbox Style ===== */
+.amenity-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.amenity-item:hover {
+  border-color: #0077cc;
+  background: #eef6ff;
+}
+
+.amenity-item input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.amenity-item span {
+  font-size: 15px;
+}
+
+/* ===== Action Button ===== */
+.rooms-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rooms-action button {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  background: #c50ec2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.rooms-action button:hover {
+  background: #d876ff;
 }
