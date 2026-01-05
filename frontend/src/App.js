@@ -25,7 +25,7 @@ import Payment from './pages/patient/Payment';
 import PaymentSuccess from './pages/patient/PaymentSuccess';
 import PaymentFailed from './pages/patient/PaymentFailed';
 import MedicalHistory from './pages/patient/MedicalHistory';
-
+import Checkout from './pages/patient/Checkout';
 function App() {
     const { user, loading } = useContext(AuthContext);
 
@@ -49,7 +49,7 @@ function App() {
             <Route path="/patient/medical-history" element={<ProtectedRoute><MedicalHistory /></ProtectedRoute>} />
             <Route path="/patient/pharmacy" element={<ProtectedRoute><Pharmacy /></ProtectedRoute>} />
             <Route path="/patient/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
-
+            <Route path="/patient/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
             {/* Admin routes */}
             <Route path="/admin/medicines/add" element={<ProtectedRoute><AddMedicineForm /></ProtectedRoute>} />
             <Route path="/admin/doctors" element={<ProtectedRoute><Doctors /></ProtectedRoute>} />
