@@ -104,7 +104,7 @@ function DoctorConsultations() {
           <p className="muted">Chat with patients for live consultation.</p>
         </div>
         <div className="cta-row">
-          <button className="ghost" onClick={() => navigate('/doctor/dashboard')}>Back to Dashboard</button>
+          <button className="ghost" onClick={() => navigate('/')}>Back to Home</button>
         </div>
       </div>
 

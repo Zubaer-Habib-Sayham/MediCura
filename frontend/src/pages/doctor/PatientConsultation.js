@@ -50,7 +50,7 @@ function PatientConsultation() {
       if (res.data.success) {
         const unique = {};
         (res.data.appointments || []).forEach((appt) => {
-          unique[appt.doctor_id] = appt.doctor_name || `Doctor${appt.doctor_id}`;
+          unique[appt.doctor_id] = appt.doctor_name || `Doctor #${appt.doctor_id}`;
         });
         const list = Object.entries(unique).map(([id, name]) => ({
           doctor_id: Number(id),

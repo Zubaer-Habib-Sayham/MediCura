@@ -15,6 +15,22 @@ const SSLCOMMERZ_CONFIG = {
   validation_api: 'https://sandbox.sslcommerz.com/validator/api/validationserverAPI.php',
 };
 
+const parseChatMessage = (raw) => {
+  if (!raw) return { text: '', sender: 'Unknown' };
+  if (typeof raw === 'string') {
+    try {
+      const obj = JSON.parse(raw);
+      if (obj && typeof obj === 'object') {
+        return { text: obj.text || obj.message || '', sender: obj.sender || 'Unknown' };
+      }
+    } catch (e) {
+      // plain text fallback
+    }
+    return { text: raw, sender: 'Unknown' };
+  }
+  return { text: String(raw), sender: 'Unknown' };
+};
+
 // ===== PROFILE MANAGEMENT =====
 
 // GET patient profile
@@ -561,6 +577,71 @@ router.get('/medical-history', auth, async (req, res) => {
   } catch (err) {
     console.error('Fetch medical history error:', err);
     res.json({ success: true, medical_history: [] }); // Return empty if table doesn't exist
+  }
+});
+
+// ===== CHAT CONSULTATION (Patient side) =====
+
+// Get chat messages with a doctor
+router.get('/chat/:doctorId', auth, async (req, res) => {
+  if (req.user.role !== 'Patient') {
+    return res.status(403).json({ success: false, message: 'Patients only' });
+  }
+  const doctorId = req.params.doctorId;
+
+  try {
+    const [rows] = await conn.query(
+      `SELECT chat_id, patient_id, doctor_id, message, timestamp
+       FROM Chat_Consultation
+       WHERE patient_id = ? AND doctor_id = ?
+       ORDER BY timestamp ASC
+       LIMIT 300`,
+      [req.user.user_id, doctorId]
+    );
+    const messages = rows.map((r) => ({
+      chat_id: r.chat_id,
+      patient_id: r.patient_id,
+      doctor_id: r.doctor_id,
+      timestamp: r.timestamp,
+      ...parseChatMessage(r.message),
+    }));
+    res.json({ success: true, messages });
+  } catch (err) {
+    console.error('Patient chat fetch error:', err);
+    res.status(500).json({ success: false, message: 'Failed to load chat', error: err.sqlMessage || err.message });
+  }
+});
+
+// Send chat message to a doctor
+router.post('/chat/:doctorId', auth, async (req, res) => {
+  if (req.user.role !== 'Patient') {
+    return res.status(403).json({ success: false, message: 'Patients only' });
+  }
+  const doctorId = req.params.doctorId;
+  const { message } = req.body;
+  if (!message) return res.status(400).json({ success: false, message: 'Message is required' });
+
+  try {
+    const payload = JSON.stringify({ sender: 'Patient', text: message });
+    const [result] = await conn.query(
+      `INSERT INTO Chat_Consultation (patient_id, doctor_id, message, timestamp)
+       VALUES (?, ?, ?, NOW())`,
+      [req.user.user_id, doctorId, payload]
+    );
+    res.json({
+      success: true,
+      chat: {
+        chat_id: result.insertId,
+        patient_id: req.user.user_id,
+        doctor_id: Number(doctorId),
+        timestamp: new Date(),
+        text: message,
+        sender: 'Patient',
+      },
+    });
+  } catch (err) {
+    console.error('Patient chat send error:', err);
+    res.status(500).json({ success: false, message: 'Failed to send message', error: err.sqlMessage || err.message });
   }
 });
 
