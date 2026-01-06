@@ -18,7 +18,7 @@ function MedicalHistory() {
             setLoading(true);
 
             // Fetch prescriptions
-            const prescRes = await api.get('/patient/prescriptions');
+            const prescRes = await api.get('/prescriptions/my');
             if (prescRes.data.success) {
                 setPrescriptions(prescRes.data.prescriptions);
             }

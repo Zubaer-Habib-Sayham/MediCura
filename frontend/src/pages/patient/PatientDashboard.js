@@ -137,6 +137,16 @@ function PatientDashboard() {
                                     <h3>Online Consultation</h3>
                                     <p>Consult with a Doctor</p>
                                 </Link>
+                                <Link to="/patient/healthcare-calculators" className="action-card">
+                                    <span className="action-icon">💌</span>
+                                    <h3>Healthcare Calculators</h3>
+                                    <p>Measure BMI/ Water Intake/ Calorie Intake</p>
+                                </Link>
+                                <Link to="/patient/rooms" className="action-card">
+                                    <span className="action-icon">🏠</span>
+                                    <h3>Book Rooms</h3>
+                                    <p>Book Rooms based on your preference</p>
+                                </Link>
                             </div>
                         </div>
 

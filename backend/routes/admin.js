@@ -17,7 +17,6 @@ router.get("/doctors", (req, res) => {
     });
 });
 
-
 router.delete("/doctors/:id", (req, res) => {
     db.query(
         "DELETE FROM User WHERE user_id = ?",
@@ -102,7 +101,10 @@ router.get("/rooms", (req, res) => {
     LEFT JOIN User u ON p.patient_id = u.user_id
   `;
   db.query(q, (err, data) => {
-    if (err) return res.status(500).json(err);
+    if (err) {
+      console.error("Get rooms error:", err);
+      return res.status(500).json(err);
+    }
     res.json(data);
   });
 });
@@ -110,13 +112,28 @@ router.get("/rooms", (req, res) => {
 router.post("/rooms", (req, res) => {
   const { price, room_type, capacity, amenities } = req.body;
 
+  // Ensure amenities is properly formatted as JSON string
+  let amenitiesJSON;
+  if (Array.isArray(amenities)) {
+    amenitiesJSON = JSON.stringify(amenities);
+  } else {
+    amenitiesJSON = JSON.stringify([]);
+  }
+
   const q = `
-    INSERT INTO Room (price, room_type, capacity, amenities)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO Room (price, room_type, capacity, amenities, status)
+    VALUES (?, ?, ?, ?, 'Available')
   `;
-  db.query(q, [price, room_type, capacity, JSON.stringify(amenities)], (err) => {
-    if (err) return res.status(500).json(err);
-    res.json("Room added");
+  
+  console.log("Adding room:", { price, room_type, capacity, amenitiesJSON });
+
+  db.query(q, [price, room_type, capacity, amenitiesJSON], (err, result) => {
+    if (err) {
+      console.error("Add room error:", err);
+      return res.status(500).json(err);
+    }
+    console.log("Room added successfully:", result);
+    res.json({ message: "Room added", room_id: result.insertId });
   });
 });
 
@@ -127,7 +144,6 @@ router.delete("/rooms/:id", (req, res) => {
   });
 });
 
-// Optional: update room info (assign patient, check_in/out)
 router.put("/rooms/:id", (req, res) => {
   const { patient_id, check_in, check_out, status } = req.body;
 
@@ -141,6 +157,5 @@ router.put("/rooms/:id", (req, res) => {
     res.json("Room updated");
   });
 });
-
 
 module.exports = router;

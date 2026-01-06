@@ -15,22 +15,6 @@ const SSLCOMMERZ_CONFIG = {
   validation_api: 'https://sandbox.sslcommerz.com/validator/api/validationserverAPI.php',
 };
 
-const parseChatMessage = (raw) => {
-  if (!raw) return { text: '', sender: 'Unknown' };
-  if (typeof raw === 'string') {
-    try {
-      const obj = JSON.parse(raw);
-      if (obj && typeof obj === 'object') {
-        return { text: obj.text || obj.message || '', sender: obj.sender || 'Unknown' };
-      }
-    } catch (e) {
-      // plain text fallback
-    }
-    return { text: raw, sender: 'Unknown' };
-  }
-  return { text: String(raw), sender: 'Unknown' };
-};
-
 // ===== PROFILE MANAGEMENT =====
 
 // GET patient profile
@@ -396,6 +380,24 @@ router.get('/payments', auth, async (req, res) => {
   }
 });
 
+// GET mock payment success (for testing/demo)
+router.get('/payments/mock-success', async (req, res) => {
+  const { appointment_id, patient_id } = req.query;
+  try {
+    await conn.query('UPDATE Appointment SET status = ? WHERE appointment_id = ?', ['Confirmed', appointment_id]);
+    const tran_id = `MOCK-${Date.now()}`;
+    await conn.query(
+      `INSERT INTO Payment (patient_id, appointment_id, amount, payment_method, transaction_id, status, payment_date) 
+       VALUES (?, ?, ?, 'MockPayment', ?, 'Completed', NOW())`,
+      [patient_id, appointment_id, 500, tran_id]
+    ).catch(() => { }); // Ignore if table missing
+    res.redirect(`http://localhost:3000/patient/payment-success?appointment_id=${appointment_id}`);
+  } catch (err) {
+    console.error('Mock payment error:', err);
+    res.redirect(`http://localhost:3000/patient/payment-failed`);
+  }
+});
+
 // POST initiate payment for appointment
 router.post('/payments/initiate', auth, async (req, res) => {
   if (req.user.role !== 'Patient') {
@@ -429,6 +431,16 @@ router.post('/payments/initiate', auth, async (req, res) => {
 
     // Generate unique transaction ID
     const tran_id = `MEDIC${Date.now()}${appointment_id}`;
+
+    // --- MOCK PAYMENT BYPASS (Force Success for Demo) ---
+    if (true) {
+      return res.json({
+        success: true,
+        gatewayUrl: `http://localhost:5000/api/patient/payments/mock-success?appointment_id=${appointment_id}&patient_id=${req.user.user_id}`,
+        transaction_id: tran_id
+      });
+    }
+    // ----------------------------------------------------
 
     // SSLCommerz payment data
     const paymentData = {
@@ -534,7 +546,7 @@ router.post('/payments/fail', async (req, res) => {
     await conn.query(
       `UPDATE Payment SET status = 'Failed' WHERE transaction_id = ?`,
       [tran_id]
-    ).catch(() => {});
+    ).catch(() => { });
   } catch (err) {
     console.error('Payment fail callback error:', err);
   }
@@ -550,7 +562,7 @@ router.post('/payments/cancel', async (req, res) => {
     await conn.query(
       `UPDATE Payment SET status = 'Cancelled' WHERE transaction_id = ?`,
       [tran_id]
-    ).catch(() => {});
+    ).catch(() => { });
   } catch (err) {
     console.error('Payment cancel callback error:', err);
   }
@@ -580,7 +592,27 @@ router.get('/medical-history', auth, async (req, res) => {
   }
 });
 
+
+
 // ===== CHAT CONSULTATION (Patient side) =====
+
+const parseChatMessage = (raw) => {
+  if (!raw) return { text: '', sender: 'Unknown' };
+  if (typeof raw === 'string') {
+    try {
+      const obj = JSON.parse(raw);
+      if (obj && typeof obj === 'object') {
+        return { text: obj.text || obj.message || '', sender: obj.sender || 'Unknown' };
+      }
+    } catch (e) {
+      // plain text fallback
+    }
+    return { text: raw, sender: 'Unknown' };
+  }
+  return { text: String(raw), sender: 'Unknown' };
+};
+
+
 
 // Get chat messages with a doctor
 router.get('/chat/:doctorId', auth, async (req, res) => {

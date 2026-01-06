@@ -26,12 +26,20 @@ import PatientProfile from './pages/patient/PatientProfile';
 import DoctorSelection from './pages/patient/DoctorSelection';
 import BookAppointment from './pages/patient/BookAppointment';
 import Appointments from './pages/patient/Appointments';
+import PatientPrescriptions from './pages/patient/PatientPrescriptions';
 import Payment from './pages/patient/Payment';
 import PaymentSuccess from './pages/patient/PaymentSuccess';
 import PaymentFailed from './pages/patient/PaymentFailed';
 import MedicalHistory from './pages/patient/MedicalHistory';
 import Checkout from './pages/patient/Checkout';
 import PHR_OrderHistory from './pages/patient/PHR_OrderHistory';
+import HealthCalculators from './pages/patient/HealthcareCalculators';
+import BMICalculator from './pages/patient/HealthcareCalculators/BMICalculator';
+import WaterIntake from './pages/patient/HealthcareCalculators/WaterIntake';
+import CalorieIntake from './pages/patient/HealthcareCalculators/CalorieIntake';
+import RoomBooking from "./pages/patient/RoomBooking";
+import MyRooms from './pages/patient/MyRooms';
+
 function App() {
     const { user, loading } = useContext(AuthContext);
 
@@ -53,6 +61,7 @@ function App() {
             <Route path="/patient/payment-success" element={<ProtectedRoute><PaymentSuccess /></ProtectedRoute>} />
             <Route path="/patient/payment-failed" element={<ProtectedRoute><PaymentFailed /></ProtectedRoute>} />
             <Route path="/patient/medical-history" element={<ProtectedRoute><MedicalHistory /></ProtectedRoute>} />
+            <Route path="/patient/prescriptions" element={<ProtectedRoute><PatientPrescriptions /></ProtectedRoute>} />
             <Route path="/patient/consultation" element={<ProtectedRoute><PatientConsultation /></ProtectedRoute>} />
             <Route path="/patient/consultation/:doctorId" element={<ProtectedRoute><PatientConsultation /></ProtectedRoute>} />
             
@@ -70,7 +79,13 @@ function App() {
             <Route path="/admin/rooms" element={<ProtectedRoute><Rooms /></ProtectedRoute>} />
             <Route path="/admin/orders" element={<ProtectedRoute><AdminOrderManagement /></ProtectedRoute>} />
             <Route path="/admin/sales" element={<ProtectedRoute><AdminSales /></ProtectedRoute>} />
-
+            <Route path="/patient/healthcare-calculators" element={<ProtectedRoute><HealthCalculators /></ProtectedRoute>} />
+            <Route path="/patient/healthcare-calculators/bmi" element={<ProtectedRoute><BMICalculator /></ProtectedRoute>} />
+            <Route path="/patient/healthcare-calculators/water" element={<ProtectedRoute><WaterIntake /></ProtectedRoute>} />
+            <Route path="/patient/healthcare-calculators/calorie" element={<ProtectedRoute><CalorieIntake /></ProtectedRoute>} />
+            <Route path="/patient/rooms" element={<ProtectedRoute><RoomBooking /></ProtectedRoute>}/>
+            <Route path="/patient/my-rooms" element={<ProtectedRoute><MyRooms /></ProtectedRoute>}/>
+            
             {/* Doctor routes */}
             <Route path="/doctor/dashboard" element={<ProtectedRoute><DoctorDashboard /></ProtectedRoute>} />
             <Route path="/doctor/prescriptions" element={<ProtectedRoute><DoctorPrescriptions /></ProtectedRoute>} />
