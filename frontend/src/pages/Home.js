@@ -138,7 +138,7 @@ function AdminHome({ user }) {
                     </Link>
                     <Link to = "/admin/sales">
                         <div className="feature-card">
-                            <h3>📊 Sales Analytics</h3>
+                            <h3>📊 Pharmacy Sales Analytics</h3>
                         </div>
                     </Link>
                 </section>
