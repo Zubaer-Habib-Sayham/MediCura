@@ -23,7 +23,9 @@ function DoctorSelection() {
     const fetchDoctors = async () => {
         try {
             setLoading(true);
+            console.log('Fetching doctors...');
             const res = await api.get('/patient/doctors');
+            console.log('Doctors response:', res.data);
             if (res.data.success) {
                 setDoctors(res.data.doctors);
                 setFilteredDoctors(res.data.doctors);
@@ -31,9 +33,12 @@ function DoctorSelection() {
                 // Extract unique specializations
                 const specs = [...new Set(res.data.doctors.map(d => d.specialization).filter(s => s))];
                 setSpecializations(specs);
+            } else {
+                console.error('Failed:', res.data.message);
             }
         } catch (err) {
             console.error('Failed to fetch doctors:', err);
+            console.error('Error response:', err.response?.data);
         } finally {
             setLoading(false);
         }

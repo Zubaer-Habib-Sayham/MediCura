@@ -100,6 +100,21 @@ router.put('/profile', auth, async (req, res) => {
   }
 });
 
+// ===== SAFE JSON PARSER =====
+const safeParseJSON = (value, defaultValue = []) => {
+  if (!value) return defaultValue;
+  if (typeof value === 'string') {
+    try {
+      return JSON.parse(value);
+    } catch (e) {
+      console.error('JSON parse error:', e, 'Value:', value);
+      return defaultValue;
+    }
+  }
+  if (Array.isArray(value)) return value;
+  return defaultValue;
+};
+
 // ===== DOCTORS =====
 
 // GET list of available doctors
@@ -118,10 +133,14 @@ router.get('/doctors', auth, async (req, res) => {
              d.available_days, d.available_time_slots, d.availability_status, d.avatar
       FROM User u
       JOIN Doctor d ON u.user_id = d.doctor_id
-      WHERE d.availability_status = 'Available'
+      WHERE 1=1
     `;
 
     const params = [];
+
+    // Don't filter by availability_status if it's causing issues
+    // query += ' AND d.availability_status = ?';
+    // params.push('Available');
 
     if (specialization) {
       query += ' AND d.specialization LIKE ?';
@@ -135,19 +154,40 @@ router.get('/doctors', auth, async (req, res) => {
 
     query += ' ORDER BY d.rating DESC, u.username ASC LIMIT 100';
 
+    console.log('Executing query:', query);
+    console.log('With params:', params);
+
     const [rows] = await conn.query(query, params);
 
-    // Parse JSON fields
-    const doctors = rows.map(doc => ({
-      ...doc,
-      available_days: doc.available_days ? JSON.parse(doc.available_days) : [],
-      available_time_slots: doc.available_time_slots ? JSON.parse(doc.available_time_slots) : [],
-    }));
+    console.log(`Found ${rows.length} doctors`);
 
+    // Safely parse JSON fields
+    const doctors = rows.map(doc => {
+      try {
+        return {
+          ...doc,
+          available_days: safeParseJSON(doc.available_days, []),
+          available_time_slots: safeParseJSON(doc.available_time_slots, []),
+        };
+      } catch (parseError) {
+        console.error('Error parsing doctor data:', parseError, 'Doctor ID:', doc.doctor_id);
+        return {
+          ...doc,
+          available_days: [],
+          available_time_slots: [],
+        };
+      }
+    });
+
+    console.log('Returning doctors:', doctors.length);
     res.json({ success: true, doctors });
   } catch (err) {
     console.error('Fetch doctors error:', err);
-    res.status(500).json({ success: false, message: 'Failed to fetch doctors', error: err.message });
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch doctors', 
+      error: err.message 
+    });
   }
 });
 
@@ -175,9 +215,10 @@ router.get('/doctors/:id', auth, async (req, res) => {
 
     const doctor = {
       ...rows[0],
-      available_days: rows[0].available_days ? JSON.parse(rows[0].available_days) : [],
-      available_time_slots: rows[0].available_time_slots ? JSON.parse(rows[0].available_time_slots) : [],
+      available_days: safeParseJSON(rows[0].available_days, []),
+      available_time_slots: safeParseJSON(rows[0].available_time_slots, []),
     };
+
 
     res.json({ success: true, doctor });
   } catch (err) {

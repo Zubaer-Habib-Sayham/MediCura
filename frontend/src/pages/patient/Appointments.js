@@ -164,6 +164,16 @@ function Appointments() {
                                             Cancel
                                         </button>
                                     )}
+
+                                    {apt.status === 'Confirmed' && (
+                                        <Link
+                                            to={`/patient/consultation/${apt.doctor_id}`}
+                                            className="btn-pay"
+                                            style={{ backgroundColor: '#2563eb', marginLeft: '10px' }}
+                                        >
+                                            Chat
+                                        </Link>
+                                    )}
                                 </div>
                             </div>
                         ))}

@@ -20,6 +20,8 @@ const app = express();
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static('uploads'));
 
 // ===== Test route =====
 app.get('/api/test', (req, res) => {
@@ -37,6 +39,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/admin', adminOrdersRoutes);
 app.use('/api/admin', adminSalesRoutes); 
 app.use('/api/patient', patientRoomRoutes);
+app.use('/api/notifications', require('./routes/notifications'));
 
 // ===== Error handling =====
 app.use((err, req, res, next) => {

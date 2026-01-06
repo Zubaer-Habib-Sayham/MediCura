@@ -18,9 +18,14 @@ function PatientPrescriptions() {
     }
     const load = async () => {
       try {
-        const res = await api.get('/prescriptions/my');
-        if (res.data.success) setPrescriptions(res.data.prescriptions || []);
+        // FIXED: Changed from '/prescriptions/my' to '/patient/prescriptions'
+        const res = await api.get('/patient/prescriptions');
+        console.log('Prescriptions response:', res.data);
+        if (res.data.success) {
+          setPrescriptions(res.data.prescriptions || []);
+        }
       } catch (err) {
+        console.error('Failed to load prescriptions:', err);
         alert('Failed to load prescriptions');
       } finally {
         setLoading(false);
