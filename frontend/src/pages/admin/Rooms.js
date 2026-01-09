@@ -163,7 +163,7 @@ function Rooms() {
           </div>
         </div>
 
-        <button className="rooms-action" onClick={add}>
+        <button className="buy-btn" onClick={add}>
           Add Room
         </button>
       </div>
